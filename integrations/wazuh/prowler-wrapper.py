@@ -86,10 +86,10 @@ def _send_msg(msg):
       print('ERROR: Wazuh must be running.')
       sys.exit(5)
     else:
-      print("ERROR: Error sending message to wazuh: {}".format(e))
+      print(f"ERROR: Error sending message to wazuh: {e}")
       sys.exit(6)
   except Exception as e:
-    print("ERROR: Error sending message to wazuh: {}".format(e))
+    print(f"ERROR: Error sending message to wazuh: {e}")
     sys.exit(6)
   return
 
@@ -154,16 +154,16 @@ def _get_prowler_results(options, prowler_check):
 def _get_prowler_checks():
   _prowler_checks = []
   for _directory_path, _directories, _files in os.walk('{path}/checks'.format(path=PATH_TO_PROWLER)):
-    _debug('Checking in : {}'.format(_directory_path), 3)
+    _debug(f'Checking in : {_directory_path}', 3)
     for _file in _files:
       if _file in CHECKS_FILES_TO_IGNORE:
-        _debug('Ignoring check - {}'.format(_directory_path, _file), 3)
+        _debug(f'Ignoring check - {_directory_path}', 3)
       elif re.match("check\d+", _file):
         _prowler_checks.append(_file)
       elif re.match("check_extra(\d+)", _file):
         _prowler_checks.append(_file[6:])
       else:
-        _debug('Unknown check file type- {}'.format(_directory_path, _file), 3)
+        _debug(f'Unknown check file type- {_directory_path}', 3)
   return _prowler_checks
 
 
@@ -236,7 +236,7 @@ if __name__ == '__main__':
     main(sys.argv[1:])
     sys.exit(0)
   except Exception as e:
-    print("Unknown error: {}".format(e))
+    print(f"Unknown error: {e}")
     if DEBUG_LEVEL > 0:
       raise
     sys.exit(1)
